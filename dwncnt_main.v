@@ -1,0 +1,25 @@
+module dwncnt_main(clk,en,rst,q);
+input clk,en,rst;
+output [3:0]q;
+wire [3:0]d;
+wire [3:0]n;
+wire [2:0]k;
+wire j;
+not g8(n[0],q[0]);
+not g9(n[1],q[1]);
+not g10(n[2],q[2]);
+not g11(n[3],q[3]);
+and g12(k[0],n[0],en);
+and g13(k[1],n[1],k[0]);
+and g14(k[2],n[2],k[1]);
+xor g15(d[0],q[0],en);
+xor g16(d[1],q[1],k[0]);
+xor g17(d[2],q[2],k[1]);
+xor g18(d[3],q[3],k[2]);
+dff_zero g27(d[0],q[0],clk,RST);
+dff_one g28(d[1],q[1],clk,RST);
+dff_two g29(d[2],q[2],clk,RST);
+dff_three g30(d[3],q[3],clk,RST);
+nor g1(j,q[3],q[2],q[1],q[0]);
+or g2(RST,j,rst);
+endmodule
